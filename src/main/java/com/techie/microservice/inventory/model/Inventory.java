@@ -10,7 +10,6 @@ import java.math.BigDecimal;
  **/
 @Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Table(name = "t_inventory")

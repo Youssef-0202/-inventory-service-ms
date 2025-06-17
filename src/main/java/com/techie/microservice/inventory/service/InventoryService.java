@@ -21,6 +21,10 @@ public class InventoryService {
         return repository.findAll();
     }
 
+    public Inventory createInventory(Inventory inventory){
+        return repository.save(inventory);
+    }
+
     public boolean isInStock(String skuCode,Integer quantity){
         return repository.existsBySkuCodeAndQuantityIsGreaterThanEqual(skuCode,quantity);
     }
