@@ -28,4 +28,8 @@ public class InventoryService {
     public boolean isInStock(String skuCode,Integer quantity){
         return repository.existsBySkuCodeAndQuantityIsGreaterThanEqual(skuCode,quantity);
     }
+
+    public List<Inventory> findAll() {
+        return repository.findAll();
+    }
 }
