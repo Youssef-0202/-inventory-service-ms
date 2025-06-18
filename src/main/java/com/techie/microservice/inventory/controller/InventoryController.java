@@ -32,6 +32,11 @@ public class InventoryController {
         return service.isInStock(skuCode,quantity);
     }
 
+    @PutMapping("/updateAfterOrder/{skuCode}/{quantityDemande}")
+    public ResponseEntity<Inventory> updateBySkuCodeAfterOrder(@PathVariable String skuCode,@PathVariable Integer quantityDemande ){
+        return ResponseEntity.status(HttpStatus.OK).body(service.updateBySkuCode(skuCode,quantityDemande));
+    }
+
     @GetMapping
     public ResponseEntity<List<Inventory>> getAll(){
         return ResponseEntity.ok(service.findAll());
