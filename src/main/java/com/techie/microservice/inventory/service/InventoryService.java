@@ -8,6 +8,7 @@ import com.techie.microservice.inventory.repository.InventoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author HP
@@ -20,9 +21,6 @@ public class InventoryService {
         this.repository = repository;
     }
 
-    public List<Inventory> getAllInventory(){
-        return repository.findAll();
-    }
 
     public Inventory createInventory(Inventory inventory){
         if(repository.findBySkuCode(inventory.getSkuCode()).isPresent()){
@@ -44,7 +42,7 @@ public class InventoryService {
                 .orElseThrow(()-> new InventoryNotFoundException(skuCode));
     }
 
-    public Inventory updateBySkuCode(String skuCode, Integer quantityDemande) {
+    public Inventory updateBySkuCodeAfterOrder(String skuCode, Integer quantityDemande) {
         Inventory inventory = findBySkuCode(skuCode);
         if(inventory.getQuantity() >= quantityDemande){
             inventory.setQuantity(inventory.getQuantity() - quantityDemande);
@@ -52,5 +50,11 @@ public class InventoryService {
         }else {
             throw new InsufficientInventoryException(skuCode, quantityDemande, inventory.getQuantity());
         }
+    }
+
+    public Inventory updateBySkuCode(Inventory inventory) {
+        Inventory existingInventory =  findBySkuCode(inventory.getSkuCode());
+        inventory.setId(existingInventory.getId());
+        return repository.save(inventory);
     }
 }

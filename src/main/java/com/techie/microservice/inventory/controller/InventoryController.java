@@ -34,11 +34,18 @@ public class InventoryController {
 
     @PutMapping("/updateAfterOrder/{skuCode}/{quantityDemande}")
     public ResponseEntity<Inventory> updateBySkuCodeAfterOrder(@PathVariable String skuCode,@PathVariable Integer quantityDemande ){
-        return ResponseEntity.status(HttpStatus.OK).body(service.updateBySkuCode(skuCode,quantityDemande));
+        return ResponseEntity.status(HttpStatus.OK).body(service.updateBySkuCodeAfterOrder(skuCode,quantityDemande));
     }
 
     @GetMapping
     public ResponseEntity<List<Inventory>> getAll(){
         return ResponseEntity.ok(service.findAll());
     }
+
+    @PutMapping("")
+    public ResponseEntity<Inventory> updateBySkuCode(@RequestBody Inventory inventory){
+        return ResponseEntity.status(HttpStatus.OK).body(service.updateBySkuCode(inventory));
+    }
+
+    // todo : look at isInStock method situation
 }
